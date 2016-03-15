@@ -1,16 +1,18 @@
-
-
 var http = require('http')
-
 var fs = require('fs')
-
-var call12 = fs.readFileSync('./index.html')
-
-var Server = http.createServer(function(request,response) {
+var Server
+fs.readFile('./index.html', function read(err, data) 
+{
+    if (err) 
+    {
+        throw err;
+    }
+    content = data;
+    Server = http.createServer(function(request,response) {
     response.writeHead(200, {"Content-Type": "text/html"});
-    response.write(call12);
+    response.write(data);
     response.end();
+}); 
+Server.listen(8080);               	                // Or put the next step in a function and invoke it
 });
-
-Server.listen(8081);
 
